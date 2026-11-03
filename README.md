@@ -409,27 +409,7 @@ cd apps/api
 go test -v -race ./tests/unit/...
 ```
 
----
 
-## 📄 Resume Impact Snippet (For Google / FAANG SDE)
-
-```text
-CollabFlow — Real-Time Collaborative Workspace Platform             [GitHub] [Live Demo]
-Next.js 14 · Go 1.22 · WebSockets · CRDTs (Yjs) · Redis 7 Pub/Sub · PostgreSQL 16 · Tailwind
-
-• Engineered a real-time collaborative workspace SaaS (Notion + Linear hybrid) supporting 100+
-  concurrent sessions with sub-30ms state propagation using Yjs CRDTs and Go WebSocket hubs.
-• Designed multi-pod WebSocket synchronization via Redis Pub/Sub backplanes, decoupling client
-  connections and enabling horizontal clustering with zero sticky-session reliance.
-• Implemented an O(1) fractional indexing algorithm for Kanban drag-and-drop reordering, eliminating
-  O(N) database write cascades and reducing table lock contention by 98%.
-• Hardened authentication with rotating HTTPOnly refresh tokens, SHA-256 token hashing at rest,
-  and atomic replay-attack revocation across distributed client devices.
-• Built a Next.js 14 frontend featuring optimistic UI updates, responsive dark glassmorphic styling,
-  and self-healing WebSocket clients with exponential-backoff jitter reconnection.
-```
-
----
 
 ## 📜 License
 This project is open-source and licensed under the **MIT License**. See [`LICENSE`](LICENSE) for complete details.
