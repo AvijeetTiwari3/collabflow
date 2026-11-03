@@ -1,12 +1,19 @@
 # CollabFlow ⚡
 ### *Real-Time Collaborative Project Management Platform & CRDT Engine*
 
+[![Live Production App](https://img.shields.io/badge/Live%20App-collabflow--henna.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://collabflow-henna.vercel.app)
+[![API Engine Status](https://img.shields.io/badge/API%20Engine-collabflow--api--j5kf.onrender.com-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://collabflow-api-j5kf.onrender.com)
 [![Next.js 14](https://img.shields.io/badge/Frontend-Next.js%2014-black?style=flat&logo=next.js)](https://nextjs.org)
 [![Go Version](https://img.shields.io/badge/Backend-Go%201.22-00ADD8?style=flat&logo=go)](https://go.dev)
 [![WebSockets](https://img.shields.io/badge/RealTime-WebSockets-010101?style=flat&logo=socketdotio)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
 [![CRDT Engine](https://img.shields.io/badge/Conflict--Free-CRDT%20(Yjs)-blueviolet)](#1-crdt-conflict-free-collaborative-editing)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](deployments/docker-compose.yml)
+
+> 🚀 **Live Production Deployment:**
+> - **Web Application (Vercel):** [https://collabflow-henna.vercel.app](https://collabflow-henna.vercel.app)
+> - **Real-Time API & WebSocket Hub (Render):** [https://collabflow-api-j5kf.onrender.com](https://collabflow-api-j5kf.onrender.com)
+> - **API Health Check:** `curl https://collabflow-api-j5kf.onrender.com/health` -> `{"status":"UP"}`
 
 CollabFlow is a production-grade, full-stack collaborative project management platform (Notion + Linear hybrid) engineered to support **simultaneous multi-user collaboration** with **sub-30ms state propagation**. Designed following Google-scale distributed systems and real-time collaboration paradigms, it pairs **Conflict-Free Replicated Data Types (CRDTs)** with a **multi-pod Go WebSocket hub backed by Redis Pub/Sub fan-out**, **$O(1)$ fractional index drag-and-drop reordering**, and **rotating HTTPOnly refresh-token security**.
 
