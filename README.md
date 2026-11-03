@@ -54,35 +54,35 @@ The platform eliminates the architectural bottlenecks of traditional single-serv
 
 ```mermaid
 flowchart TD
-    subgraph ClientTier ["Client Tier (Next.js 14 App Router)"]
-        UserA["👤 User A Browser\n(Optimistic UI + Yjs CRDT)"]
-        UserB["👤 User B Browser\n(Optimistic UI + Yjs CRDT)"]
+    subgraph ClientTier ["Client Tier: Next.js 14 App Router"]
+        UserA["👤 User A: Browser (Optimistic UI + Yjs CRDT)"]
+        UserB["👤 User B: Browser (Optimistic UI + Yjs CRDT)"]
     end
 
     subgraph EdgeRouting ["Edge Ingress & Reverse Proxy"]
-        VercelCDN["▲ Vercel Edge Network\n(Static Assets, Global CDN)"]
-        CloudflareProxy["🛡️ Cloudflare Proxy / Edge Router\n(DDoS Mitigation, TLS 1.3 Termination)"]
+        VercelCDN["▲ Vercel Edge Network (Global CDN)"]
+        CloudflareProxy["🛡️ Cloudflare Proxy (DDoS Mitigation, TLS 1.3 Termination)"]
     end
 
-    subgraph ComputeTier ["API & Real-Time Engine (Go 1.22 Cluster)"]
-        Pod1["🔌 WebSocket Hub Pod 1\n(Goroutine per Client, Ephemeral Rooms)"]
-        Pod2["🔌 WebSocket Hub Pod 2\n(Goroutine per Client, Ephemeral Rooms)"]
+    subgraph ComputeTier ["API & Real-Time Engine: Go 1.22 Cluster"]
+        Pod1["🔌 WebSocket Hub Pod 1 (Client Sessions & Rooms)"]
+        Pod2["🔌 WebSocket Hub Pod 2 (Client Sessions & Rooms)"]
     end
 
     subgraph SyncFabric ["Cross-Pod Real-Time Backplane"]
-        RedisPubSub[("📡 Redis 7 Pub/Sub Cluster\nChannel: collabflow:room:{roomId}")]
-        PresenceCache[("⚡ Redis Presence Registry\nHash with 5m Heartbeat TTL")]
+        RedisPubSub[("📡 Redis 7 Pub/Sub Cluster")]
+        PresenceCache[("⚡ Redis Presence Registry (TTL 5m)")]
     end
 
-    subgraph StorageTier ["Persistence Layer (PostgreSQL 16)"]
-        Postgres[("🗄️ PostgreSQL 16\nACID Workspaces, Fractional Index Tasks, Hashed Tokens")]
+    subgraph StorageTier ["Persistence Layer"]
+        Postgres[("🗄️ PostgreSQL 16 (Workspaces, Tasks, Tokens)")]
     end
 
-    UserA -->|HTTPS / UI Assets| VercelCDN
-    UserB -->|HTTPS / UI Assets| VercelCDN
+    UserA -->|HTTPS Static Assets| VercelCDN
+    UserB -->|HTTPS Static Assets| VercelCDN
 
-    UserA <-->|WSS / CRDT Diffs & Presence| CloudflareProxy
-    UserB <-->|WSS / CRDT Diffs & Presence| CloudflareProxy
+    UserA <-->|WSS CRDT Diffs & Presence| CloudflareProxy
+    UserB <-->|WSS CRDT Diffs & Presence| CloudflareProxy
 
     CloudflareProxy <-->|Load Balanced WebSocket| Pod1
     CloudflareProxy <-->|Load Balanced WebSocket| Pod2
@@ -90,11 +90,11 @@ flowchart TD
     Pod1 <-->|Publish / Subscribe| RedisPubSub
     Pod2 <-->|Publish / Subscribe| RedisPubSub
 
-    Pod1 -->|Heartbeat / State| PresenceCache
-    Pod2 -->|Heartbeat / State| PresenceCache
+    Pod1 -->|Heartbeat State| PresenceCache
+    Pod2 -->|Heartbeat State| PresenceCache
 
-    Pod1 -->|SQL Queries / Connection Pool (50)| Postgres
-    Pod2 -->|SQL Queries / Connection Pool (50)| Postgres
+    Pod1 -->|SQL Connection Pool| Postgres
+    Pod2 -->|SQL Connection Pool| Postgres
 ```
 
 ---
