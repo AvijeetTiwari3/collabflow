@@ -3,7 +3,6 @@ package ws
 import (
 	"context"
 	"encoding/json"
-	"log"
 	"sync"
 
 	"github.com/redis/go-redis/v9"
